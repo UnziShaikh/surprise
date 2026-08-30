@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ifra Birthday Surprise</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fbf7ff;--paper:#fffaff;--blush:#f3d9ea;--lilac:#e3d9f5;--ink:#564965;--shadow:0 18px 45px rgba(120,80,98,.15)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:"Work Sans",sans-serif;overflow-x:hidden;background:var(--cream)}
+body::before{content:"";position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.24;background-image:radial-gradient(rgba(112,77,92,.22) .55px,transparent .65px),radial-gradient(rgba(255,255,255,.9) .55px,transparent .65px);background-position:0 0,8px 8px;background-size:12px 12px;mix-blend-mode:multiply}
+.script{font-family:"Caveat",cursive}.page-shell{width:100%;overflow:hidden}.glass{border:1px solid rgba(255,255,255,.72);background:rgba(255,255,255,.44);backdrop-filter:blur(13px)}
+.opening-screen{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px;overflow:hidden;transition:opacity .85s ease,visibility .85s ease}.opening-screen.is-opened{opacity:0;visibility:hidden;pointer-events:none}
+.opening-stage{width:min(440px,100%);text-align:center;position:relative;z-index:2}.opening-stage>*{animation:rise-in .85s both}
+.envelope-button{position:relative;width:min(290px,78vw);aspect-ratio:1.38;display:block;margin:28px auto 25px;border:0;background:transparent;cursor:pointer;filter:drop-shadow(0 23px 18px rgba(121,79,91,.2));animation:envelope-float 3.7s ease-in-out infinite}
+.envelope-back{position:absolute;inset:0;border-radius:10px 10px 20px 20px;background:linear-gradient(145deg,#f1c9ce,#e5adb9)}.envelope-letter{position:absolute;z-index:1;left:11%;width:78%;bottom:10%;height:74%;padding:16% 8% 0;border-radius:7px;background:#fffdf8;box-shadow:0 4px 13px rgba(100,66,78,.13);transition:transform .85s}.envelope-letter:before{content:"for ifra";font-family:"Caveat";font-size:1.75rem;color:#a56b80}
+.envelope-front{position:absolute;inset:0;z-index:3;clip-path:polygon(0 25%,50% 63%,100% 25%,100% 100%,0 100%);border-radius:10px 10px 20px 20px;background:linear-gradient(145deg,#f7d9db,#eebfc7)}.envelope-flap{position:absolute;z-index:4;inset:0;transform-origin:top;clip-path:polygon(0 0,100% 0,50% 64%);background:linear-gradient(160deg,#f9e2e1,#eebbc3);transition:transform .75s}.envelope-seal{position:absolute;z-index:5;top:43%;left:50%;display:grid;width:43px;height:43px;place-items:center;border-radius:50%;background:#bd7c92;color:#fff;transform:translate(-50%,-50%);transition:opacity .25s}.envelope-button.opening{animation:none;pointer-events:none}.envelope-button.opening .envelope-flap{transform:rotateX(180deg)}.envelope-button.opening .envelope-letter{transform:translateY(-62%)}.envelope-button.opening .envelope-seal{opacity:0}
+.float-shape{position:absolute;pointer-events:none;color:#c795b5;opacity:.65;animation:drift 7s ease-in-out infinite}.shape-1{top:14%;left:10%;font-size:23px}.shape-2{top:24%;right:12%}.shape-3{left:18%;bottom:20%}.shape-4{right:18%;bottom:13%;font-size:24px}
+.main-content{opacity:0;transform:translateY(16px);transition:opacity .8s ease .2s,transform .8s ease .2s}.main-content.is-visible{opacity:1;transform:none}
+.hero{position:relative;display:grid;min-height:100vh;place-items:center;padding:112px 24px 76px;overflow:hidden;background:radial-gradient(circle at 12% 15%,rgba(226,211,239,.85),transparent 27%),radial-gradient(circle at 88% 78%,rgba(249,210,205,.72),transparent 26%),linear-gradient(145deg,#fffdf9,#fff4f1)}
+.hero-inner{width:min(760px,100%);text-align:center;position:relative;z-index:2}.eyebrow{display:inline-flex;padding:9px 15px;border-radius:999px;color:#8d6476;font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}.hero-title{margin:22px auto 13px;font-family:"Caveat";font-size:clamp(4rem,12vw,8.6rem);line-height:.86;color:#775968}.hero-subtitle{max-width:480px;margin:auto;color:#806b75;font-size:clamp(1rem,3vw,1.25rem);line-height:1.6}.date-chip{display:inline-flex;margin-top:31px;padding:12px 21px;border:1px solid rgba(185,145,172,.3);border-radius:999px;background:rgba(255,255,255,.58);color:#976b82;font-family:"Caveat";font-size:1.55rem}.hero-note{margin-top:55px;color:#a58592;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase}
+.section-wrap{width:min(1180px,100%);margin:auto;padding:92px 22px}.section-head{text-align:center;margin-bottom:42px}.section-kicker{color:#b28096;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.section-title{margin:8px 0;color:#705664;font-family:"Caveat";font-size:clamp(3rem,8vw,5rem);line-height:.95}.section-copy{max-width:490px;margin:15px auto;color:#947a85;line-height:1.65}
+.memories-section{background:#fdf6f2}.polaroid-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 15px}.polaroid{position:relative;width:100%;padding:8px 8px 14px;border:0;background:#fffefa;cursor:zoom-in;box-shadow:0 12px 22px rgba(120,83,96,.16);transition:.3s;transform:rotate(var(--tilt))}.polaroid:hover{transform:rotate(0) translateY(-7px) scale(1.025);box-shadow:var(--shadow)}.polaroid img{width:100%;aspect-ratio:.9;object-fit:cover;display:block;pointer-events:none}.tape{position:absolute;top:-10px;left:50%;width:58px;height:23px;background:rgba(231,201,211,.82);transform:translateX(-50%) rotate(-4deg)}.tape.lilac{background:rgba(211,196,234,.76);transform:translateX(-50%) rotate(5deg)}.caption{margin-top:9px;color:#876776;font-family:"Caveat";font-size:1.45rem}
+.motion-section{background:#f8f3ff;overflow:hidden}.motion-rail{display:flex;gap:17px;overflow-x:auto;padding:4px 6px 28px;scroll-snap-type:x mandatory}.motion-card{position:relative;flex:0 0 min(285px,79vw);min-height:410px;overflow:hidden;border-radius:24px;scroll-snap-align:center;box-shadow:var(--shadow);background:#eee5ee}.memory-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#eee5ee}.motion-card:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent 30%,rgba(72,47,57,.72))}.video-play{position:absolute;z-index:4;top:50%;left:50%;width:62px;height:62px;display:grid;place-items:center;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.75);border-radius:50%;background:rgba(255,255,255,.22);color:#fff;cursor:pointer;transition:.3s}.video-play:hover{transform:translate(-50%,-50%) scale(1.1)}.video-play svg{width:25px;height:25px;fill:#fff}.video-card.is-playing .video-play{opacity:0;pointer-events:none}.motion-content{position:absolute;z-index:3;right:20px;bottom:20px;left:20px;color:#fff}.motion-caption{margin-top:70px;font-family:"Caveat";font-size:2rem;line-height:.9}
+.letter-section{background:linear-gradient(135deg,#f6e5ec,#fff9f3 54%,#eee8f8)}.letter-paper{max-width:760px;margin:auto;padding:clamp(34px,7vw,72px) clamp(26px,8vw,80px);border:1px solid rgba(199,166,159,.28);background:#fffdf8;box-shadow:var(--shadow)}.letter-content{color:#715965;font-family:"Caveat";font-size:clamp(1.55rem,4.2vw,2.1rem);line-height:1.27}.letter-content p{margin:0 0 18px;opacity:0;transform:translateY(16px);transition:.7s}.letter-paper.reveal p{opacity:1;transform:none}.letter-paper.reveal p:nth-child(2){transition-delay:.15s}.letter-paper.reveal p:nth-child(3){transition-delay:.3s}.letter-paper.reveal p:nth-child(4){transition-delay:.45s}.letter-paper.reveal p:nth-child(5){transition-delay:.6s}.letter-paper.reveal p:nth-child(6){transition-delay:.75s}
+.ending-section{padding-bottom:110px;background:#fff9fd}.final-photo-wrap{position:relative;width:min(580px,100%);margin:38px auto}.final-photo{width:100%;aspect-ratio:1.08;object-fit:cover;border:12px solid #fffefa;box-shadow:var(--shadow);transform:rotate(-2deg)}.final-note{position:absolute;right:-4px;bottom:-18px;padding:13px 18px;background:#f2dce7;color:#855c70;transform:rotate(5deg);font-family:"Caveat";font-size:1.5rem}.replay-button,.music-button{border:0;border-radius:999px;cursor:pointer}.replay-button{padding:13px 23px;box-shadow:0 10px 22px rgba(168,104,132,.2)}.music-button{position:fixed;z-index:35;right:19px;bottom:19px;padding:11px 16px;background:rgba(255,253,249,.8);color:#865e73;box-shadow:0 10px 28px rgba(113,80,95,.16);backdrop-filter:blur(12px)}.music-state-pause{display:none}.music-button.is-playing .music-state-play{display:none}.music-button.is-playing .music-state-pause{display:inline}
+.lightbox{position:fixed;z-index:60;inset:0;display:grid;place-items:center;padding:28px;background:rgba(68,42,53,.58);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.28s}.lightbox.is-open{opacity:1;visibility:visible}.lightbox-inner{width:min(510px,100%);text-align:right}.lightbox-card-slot .polaroid{max-width:470px;margin:auto;transform:rotate(0)}.lightbox-close{display:inline-grid;width:43px;height:43px;margin-bottom:12px;place-items:center;border:0;border-radius:50%;background:#fffdf9;cursor:pointer}.toast{position:fixed;z-index:70;left:50%;bottom:80px;padding:12px 16px;border-radius:999px;background:#725564;color:#fff;transform:translate(-50%,120px);opacity:0;transition:.35s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@keyframes rise-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}@keyframes envelope-float{50%{transform:translateY(-12px) rotate(.8deg)}}@keyframes drift{50%{transform:translateY(-14px) rotate(12deg)}}
+@media(min-width:680px){.polaroid-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 24px}}@media(min-width:1024px){.polaroid-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:34px 25px}.motion-rail{justify-content:center;overflow:visible}.motion-card{flex-basis:210px;min-height:355px}}
+</style>
+</head>
+<body>
+<div class="page-shell">
+<div id="opening-screen" class="opening-screen">
+<span class="float-shape shape-1">✦</span><span class="float-shape shape-2">♡</span><span class="float-shape shape-3">✧</span><span class="float-shape shape-4">♥</span>
+<div class="opening-stage"><p class="script text-3xl text-[#8b6877]">A little birthday surprise ♡</p>
+<button id="envelope-button" class="envelope-button" type="button"><span class="envelope-back"></span><span class="envelope-letter"></span><span class="envelope-front"></span><span class="envelope-flap"></span><span class="envelope-seal">♥</span></button>
+<p class="text-sm font-semibold tracking-[.12em] text-[#9a7684] uppercase">Tap the envelope to open</p></div>
+</div>
+
+<main id="main-content" class="main-content">
+<section class="hero"><div class="hero-inner"><p class="eyebrow glass">For my childhood bestie</p><h1 class="hero-title">Happy Birthday, Ifra ♡</h1><p class="hero-subtitle">From childhood chaos to forever memories — here’s a tiny corner of the internet made just for you.</p><p class="date-chip">17 September • Your Day</p><p class="hero-note">scroll slowly • the memories are waiting ✦</p></div></section>
+
+<section class="memories-section"><div class="section-wrap"><div class="section-head"><p class="section-kicker">our camera roll</p><h2 class="section-title">Little moments, big memories</h2><p class="section-copy">15 little snapshots of the friendship that somehow keeps getting better with time.</p></div><div id="polaroid-grid" class="polaroid-grid"></div></div></section>
+
+<section class="motion-section"><div class="section-wrap"><div class="section-head"><p class="section-kicker">the memory reel</p><h2 class="section-title">Us, but in motion</h2><p class="section-copy">Five little frames for the stories we will probably still laugh about years from now.</p></div><div class="motion-rail" id="motion-rail"></div></div></section>
+
+<section class="letter-section"><div class="section-wrap"><div class="section-head"><p class="section-kicker">a note for you</p><h2 class="section-title">Dear Ifra…</h2></div><article id="letter-paper" class="letter-paper"><div class="letter-content">
+<p>Happy birthday to my forever person. ♡</p>
+<p>Bachpan se sath hain, itni ajeeb-o-ghareeb harkatein sath ki hain aur pata hi nahi kitne funny moments capture kiye hain. 😂</p>
+<p>Agar maine kabhi zyada badtameezi ki ho toh sorry, but wese toh dosti mein sorry aur thank you ki koi zaroorat hi nahi hoti. ♡</p>
+<p>You are my Tom and I'm your Jerry. 😂 Aur tum meri TARBOOZ ho, bas ye baat yaad rakhna. 🍉</p>
+<p>Bachpan ki woh pagalpan wali friendship se le kar aaj tak, we've made so many weird, funny and unforgettable memories together. Aur honestly, I wouldn't want it any other way. ♡</p>
+<p>Once again, Happy Birthday my TARBOOZ! 🍉🎂 Forever besties. Always. ♡</p>
+</div></article></div></section>
+
+<section class="ending-section"><div class="section-wrap text-center"><p class="section-kicker">one last thing</p><h2 class="section-title">More memories loading…</h2><p class="section-copy">This is only a tiny piece of everything we have already lived — and there is so much more to come.</p><div class="final-photo-wrap"><img id="favorite-memory-photo" class="final-photo"><span class="final-note">forever us ♡</span></div><p class="script text-3xl text-[#966c7d] mb-7">made with way too much love for Ifra</p><button id="replay-button" class="replay-button">↺ Open the surprise again</button></div></section>
+</main>
+
+<button id="music-button" class="music-button" type="button"><i class="music-icon" data-lucide="music-2"></i> <span class="music-state-play">play ambience</span><span class="music-state-pause">pause ambience</span></button>
+<div id="lightbox" class="lightbox"><div class="lightbox-inner"><button id="lightbox-close" class="lightbox-close" type="button"><i data-lucide="x"></i></button><div id="lightbox-card-slot"></div></div></div>
+<div id="toast" class="toast"></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+lucide.createIcons();
+
+const memoryImages=Array.from({length:15},(_,i)=>`photos/${String(i+1).padStart(2,"0")}.jpg`);
+const captions=["little us ♡","core memory unlocked","still us","chaos partners","forever besties","we really grew up","birthday warmth","coffee dates","just us","adventure mode","giggles","silly us","heart full","celebration","always"];
+const grid=document.getElementById("polaroid-grid");
+const tilts=[-5,3,-2,5,-4,2,-5,4,-3,5,-2,4,-5,3,-2];
+memoryImages.forEach((src,i)=>{
+const b=document.createElement("button");b.className="polaroid";b.type="button";b.style.setProperty("--tilt",tilts[i]+"deg");
+b.innerHTML=`<span class="${i%2?"tape lilac":"tape"}"></span><img src="${src}" loading="lazy" alt="Birthday memory ${i+1}"><span class="caption">${captions[i]}</span>`;
+grid.appendChild(b);
+});
+document.getElementById("favorite-memory-photo").src=memoryImages[4];
+
+const videoCaptions=["the old days ♡","birthday energy ✦","random adventures","laughing again ♡","always us ♥"];
+const rail=document.getElementById("motion-rail");
+for(let i=1;i<=5;i++){
+const n=String(i).padStart(2,"0");
+const poster=memoryImages[Math.min(i*3-1,14)];
+const card=document.createElement("article");card.className="motion-card video-card";
+card.innerHTML=`<video class="memory-video" preload="metadata" playsinline muted poster="${poster}"><source src="videos/${n}.mp4" type="video/mp4">Your browser does not support video.</video><button class="video-play" type="button" aria-label="Play video"><i data-lucide="play"></i></button><div class="motion-content"><p class="motion-caption">${videoCaptions[i-1]}</p></div>`;
+rail.appendChild(card);
+}
+lucide.createIcons();
+
+const openingScreen=document.getElementById("opening-screen"),envelopeButton=document.getElementById("envelope-button"),mainContent=document.getElementById("main-content"),musicButton=document.getElementById("music-button"),replayButton=document.getElementById("replay-button"),letterPaper=document.getElementById("letter-paper"),lightbox=document.getElementById("lightbox"),lightboxSlot=document.getElementById("lightbox-card-slot"),closeLightbox=document.getElementById("lightbox-close"),toast=document.getElementById("toast");
+let audioContext,ambientTimer,masterGain,isPlaying=false,activePolaroid=null,originParent=null,originNextSibling=null;
+
+function showToast(m){toast.textContent=m;toast.classList.add("show");clearTimeout(showToast.t);showToast.t=setTimeout(()=>toast.classList.remove("show"),2600)}
+function softNote(freq,duration,volume){if(!audioContext||!masterGain)return;const o=audioContext.createOscillator(),g=audioContext.createGain();o.type="sine";o.frequency.value=freq;g.gain.setValueAtTime(.0001,audioContext.currentTime);g.gain.exponentialRampToValueAtTime(volume,audioContext.currentTime+.06);g.gain.exponentialRampToValueAtTime(.0001,audioContext.currentTime+duration);o.connect(g).connect(masterGain);o.start();o.stop(audioContext.currentTime+duration+.04)}
+function startMusic(){if(isPlaying)return;audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();audioContext.resume();masterGain=masterGain||audioContext.createGain();masterGain.gain.value=.14;masterGain.connect(audioContext.destination);const melody=[523.25,659.25,783.99,659.25,587.33,659.25];let x=0;const phrase=()=>{softNote(melody[x%melody.length],1.9,.11);x++};phrase();ambientTimer=setInterval(phrase,1700);isPlaying=true;musicButton.classList.add("is-playing")}
+function stopMusic(){clearInterval(ambientTimer);ambientTimer=null;isPlaying=false;musicButton.classList.remove("is-playing")}
+
+envelopeButton.addEventListener("click",()=>{envelopeButton.classList.add("opening");startMusic();setTimeout(()=>{openingScreen.classList.add("is-opened");mainContent.classList.add("is-visible")},780)});
+musicButton.addEventListener("click",()=>{isPlaying?(stopMusic(),showToast("Ambience paused ♡")):(startMusic(),showToast("Gentle birthday ambience on ✦"))});
+
+new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){letterPaper.classList.add("reveal")}}),{threshold:.24}).observe(letterPaper);
+
+function openLightbox(card){activePolaroid=card;originParent=card.parentNode;originNextSibling=card.nextSibling;lightboxSlot.appendChild(card);lightbox.classList.add("is-open");closeLightbox.focus()}
+function closeExpandedMemory(){if(!activePolaroid)return;if(originNextSibling)originParent.insertBefore(activePolaroid,originNextSibling);else originParent.appendChild(activePolaroid);activePolaroid=null;lightbox.classList.remove("is-open")}
+document.querySelectorAll(".polaroid").forEach(card=>card.addEventListener("click",()=>openLightbox(card)));
+closeLightbox.addEventListener("click",closeExpandedMemory);lightbox.addEventListener("click",e=>{if(e.target===lightbox)closeExpandedMemory()});document.addEventListener("keydown",e=>{if(e.key==="Escape")closeExpandedMemory()});
+
+document.querySelectorAll(".video-card").forEach(card=>{
+const video=card.querySelector(".memory-video"),button=card.querySelector(".video-play");
+function toggle(){document.querySelectorAll(".memory-video").forEach(v=>{if(v!==video){v.pause();v.currentTime=0;v.closest(".video-card").classList.remove("is-playing")}});if(video.paused){video.play().then(()=>card.classList.add("is-playing")).catch(()=>showToast("Video play nahi ho rahi ♡"))}else{video.pause();card.classList.remove("is-playing")}}
+button.addEventListener("click",e=>{e.stopPropagation();toggle()});video.addEventListener("click",e=>{e.stopPropagation();toggle()});video.addEventListener("ended",()=>card.classList.remove("is-playing"));
+});
+
+replayButton.addEventListener("click",()=>{closeExpandedMemory();stopMusic();document.querySelectorAll(".memory-video").forEach(v=>{v.pause();v.currentTime=0});mainContent.classList.remove("is-visible");openingScreen.classList.remove("is-opened");envelopeButton.classList.remove("opening");window.scrollTo({top:0,behavior:"smooth"})});
+});
+</script>
+</body>
+</html>
